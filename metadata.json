@@ -1,0 +1,5 @@
+{
+  "name": "Nifty 50 Momentum Scanner",
+  "description": "A real-time intraday momentum scanner for Nifty 50 stocks featuring live simulated data, technical indicators (RSI, Volume), and AI-powered market sentiment analysis.",
+  "requestFramePermissions": []
+}

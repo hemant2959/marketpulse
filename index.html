@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <meta name="theme-color" content="#020617">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="NiftyPulse">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/3310/3310748.png">
+    
+    <title>Nifty 50 Momentum Scanner</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- Tailwind Config (Must be defined before CDN script for reliability) -->
+    <script>
+      window.tailwind = {
+        config: {
+          darkMode: 'class',
+          theme: {
+            extend: {
+              colors: {
+                slate: {
+                  850: '#151e32',
+                }
+              }
+            }
+          }
+        }
+      }
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <style>
+      :root {
+        --bg-color: #f1f5f9;
+        --text-color: #0f172a;
+        --glass-bg: rgba(255, 255, 255, 0.7);
+        --glass-border: rgba(203, 213, 225, 0.6);
+        --bg-gradient: 
+          radial-gradient(circle at 50% 0%, #e0e7ff 0%, #f1f5f9 60%),
+          linear-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+        
+        /* Scrollbar Variables - Light Mode Default */
+        --scrollbar-thumb: #cbd5e1; /* slate-300 */
+        --scrollbar-thumb-hover: #94a3b8; /* slate-400 */
+      }
+
+      html.dark {
+        --bg-color: #020617;
+        --text-color: #e2e8f0;
+        --glass-bg: rgba(15, 23, 42, 0.6);
+        --glass-border: rgba(255, 255, 255, 0.08);
+        --bg-gradient: 
+          radial-gradient(circle at 50% 0%, #1e1b4b 0%, #020617 60%),
+          linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+          
+        /* Scrollbar Variables - Dark Mode */
+        --scrollbar-thumb: #334155; /* slate-700 */
+        --scrollbar-thumb-hover: #475569; /* slate-600 */
+      }
+
+      body {
+        font-family: 'Inter', sans-serif;
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        -webkit-tap-highlight-color: transparent;
+        background-image: var(--bg-gradient);
+        background-size: 100% 100%, 50px 50px, 50px 50px;
+        background-attachment: fixed;
+        min-height: 100vh; /* Ensure full height */
+        
+        /* Handle Safe Areas for Native App (Notch support) */
+        padding-top: env(safe-area-inset-top);
+        padding-bottom: env(safe-area-inset-bottom);
+        padding-left: env(safe-area-inset-left);
+        padding-right: env(safe-area-inset-right);
+        transition: background-color 0.3s ease, color 0.3s ease;
+      }
+      
+      /* Custom Scrollbar Styling (Global) */
+      * {
+        scrollbar-width: thin;
+        scrollbar-color: var(--scrollbar-thumb) transparent;
+      }
+
+      /* Webkit (Chrome, Safari, Edge) */
+      ::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+      }
+      
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      
+      ::-webkit-scrollbar-thumb {
+        background-color: var(--scrollbar-thumb);
+        border-radius: 20px;
+        border: 2px solid transparent;
+        background-clip: content-box;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        background-color: var(--scrollbar-thumb-hover);
+      }
+      
+      /* Utilities */
+      .no-scrollbar::-webkit-scrollbar {
+        display: none;
+      }
+      .no-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+      
+      .glass-panel {
+        background: var(--glass-bg);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid var(--glass-border);
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.30.0",
+    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.555.0",
+    "recharts": "https://aistudiocdn.com/recharts@^3.5.1"
+  }
+}
+</script>
+</head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>
