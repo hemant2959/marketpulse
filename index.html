@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-    <meta name="theme-color" content="#020617">
+    <meta name="theme-color" content="#0f172a">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="NiftyPulse">
@@ -13,7 +13,7 @@
     <title>Nifty 50 Momentum Scanner</title>
     
     <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 
     <!-- Tailwind Config (Must be defined before CDN script for reliability) -->
     <script>
@@ -22,10 +22,20 @@
           darkMode: 'class',
           theme: {
             extend: {
+              fontFamily: {
+                sans: ['Inter', 'sans-serif'],
+                mono: ['JetBrains Mono', 'monospace'],
+              },
               colors: {
                 slate: {
                   850: '#151e32',
+                  900: '#0f172a',
+                  950: '#020617',
                 }
+              },
+              boxShadow: {
+                'glow': '0 0 15px rgba(6, 182, 212, 0.3)',
+                'card': '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
               }
             }
           }
@@ -36,33 +46,41 @@
     
     <style>
       :root {
-        --bg-color: #f1f5f9;
-        --text-color: #0f172a;
-        --glass-bg: rgba(255, 255, 255, 0.7);
-        --glass-border: rgba(203, 213, 225, 0.6);
+        --bg-color: #f8fafc;
+        --text-color: #334155;
+        --card-bg: #ffffff;
+        --card-border: #e2e8f0;
+        
+        --glass-bg: rgba(255, 255, 255, 0.85);
+        --glass-border: rgba(226, 232, 240, 0.8);
+        
         --bg-gradient: 
-          radial-gradient(circle at 50% 0%, #e0e7ff 0%, #f1f5f9 60%),
-          linear-gradient(rgba(0, 0, 0, 0.03) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+          radial-gradient(circle at 50% 0%, #e0f2fe 0%, #f8fafc 40%),
+          linear-gradient(#f1f5f9 1px, transparent 1px),
+          linear-gradient(90deg, #f1f5f9 1px, transparent 1px);
         
         /* Scrollbar Variables - Light Mode Default */
-        --scrollbar-thumb: #cbd5e1; /* slate-300 */
-        --scrollbar-thumb-hover: #94a3b8; /* slate-400 */
+        --scrollbar-thumb: #cbd5e1; 
+        --scrollbar-thumb-hover: #94a3b8; 
       }
 
       html.dark {
-        --bg-color: #020617;
-        --text-color: #e2e8f0;
-        --glass-bg: rgba(15, 23, 42, 0.6);
-        --glass-border: rgba(255, 255, 255, 0.08);
+        --bg-color: #0f172a;
+        --text-color: #f1f5f9;
+        --card-bg: #1e293b;
+        --card-border: #334155;
+
+        --glass-bg: rgba(30, 41, 59, 0.7);
+        --glass-border: rgba(51, 65, 85, 0.6);
+        
         --bg-gradient: 
-          radial-gradient(circle at 50% 0%, #1e1b4b 0%, #020617 60%),
-          linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+          radial-gradient(circle at 50% 0%, #172554 0%, #0f172a 50%),
+          linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
           
         /* Scrollbar Variables - Dark Mode */
-        --scrollbar-thumb: #334155; /* slate-700 */
-        --scrollbar-thumb-hover: #475569; /* slate-600 */
+        --scrollbar-thumb: #334155;
+        --scrollbar-thumb-hover: #475569;
       }
 
       body {
@@ -71,9 +89,9 @@
         color: var(--text-color);
         -webkit-tap-highlight-color: transparent;
         background-image: var(--bg-gradient);
-        background-size: 100% 100%, 50px 50px, 50px 50px;
+        background-size: 100% 100%, 40px 40px, 40px 40px;
         background-attachment: fixed;
-        min-height: 100vh; /* Ensure full height */
+        min-height: 100vh;
         
         /* Handle Safe Areas for Native App (Notch support) */
         padding-top: env(safe-area-inset-top);
@@ -119,11 +137,22 @@
         scrollbar-width: none;
       }
       
+      .dashboard-card {
+        background: var(--card-bg);
+        border: 1px solid var(--card-border);
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      }
+      
+      /* Dark mode specific override for dashboard card if needed usually handled by CSS vars but explicit for glass effects */
       .glass-panel {
         background: var(--glass-bg);
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-        border: 1px solid var(--glass-border);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border-bottom: 1px solid var(--glass-border);
+      }
+      
+      .template-shadow {
+         box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
       }
     </style>
   <script type="importmap">
