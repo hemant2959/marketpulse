@@ -12,28 +12,28 @@
     
     <title>Nifty 50 Momentum Scanner</title>
     
-    <!-- IMPORTANT: Tailwind Config MUST be defined BEFORE loading the library -->
+    <!-- Load Tailwind Library FIRST -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Then Configure It -->
     <script>
-      window.tailwind = {
-        config: {
-          darkMode: 'class',
-          theme: {
-            extend: {
-              colors: {
-                slate: {
-                  850: '#151e32',
-                }
-              },
-              fontFamily: {
-                sans: ['Inter', 'sans-serif'],
-                mono: ['JetBrains Mono', 'monospace'],
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              slate: {
+                850: '#151e32',
               }
+            },
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+              mono: ['JetBrains Mono', 'monospace'],
             }
           }
         }
       }
     </script>
-    <script src="https://cdn.tailwindcss.com"></script>
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <style>
@@ -55,7 +55,7 @@
       html.dark {
         --bg-color: #020617;
         --text-color: #e2e8f0;
-        --glass-bg: rgba(15, 23, 42, 0.75); /* Slightly increased opacity for better text readability */
+        --glass-bg: rgba(15, 23, 42, 0.75);
         --glass-border: rgba(255, 255, 255, 0.08);
         --bg-gradient: 
           radial-gradient(circle at 50% 0%, #1e1b4b 0%, #020617 70%),
@@ -85,14 +85,11 @@
       }
       
       /* Custom Scrollbar Styling (Global) */
-      
-      /* Firefox */
       * {
         scrollbar-width: thin;
         scrollbar-color: var(--scrollbar-thumb) transparent;
       }
 
-      /* Webkit (Chrome, Safari, Edge) */
       ::-webkit-scrollbar {
         width: 6px;
         height: 6px;
@@ -111,15 +108,6 @@
 
       ::-webkit-scrollbar-thumb:hover {
         background-color: var(--scrollbar-thumb-hover);
-      }
-      
-      /* Utilities */
-      .no-scrollbar::-webkit-scrollbar {
-        display: none;
-      }
-      .no-scrollbar {
-        -ms-overflow-style: none;
-        scrollbar-width: none;
       }
       
       .glass-panel {
@@ -142,7 +130,7 @@
 }
 </script>
 </head>
-  <body>
+  <body style="background-color: #020617;"> <!-- Inline fallback for Dark Mode -->
     <div id="root"></div>
   </body>
 </html>
